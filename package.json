@@ -1,0 +1,11 @@
+{
+	"name": "nodecms",
+	"description": "Testing Node.js by building a basic blogging framework",
+	"version": "0.0.1",
+	"private": true,
+	"dependencies": {
+		"express": "3.x",
+		"ejs": "0.8.3",
+		"ejs-locals": "1.0.2"
+	}
+}
