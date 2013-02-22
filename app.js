@@ -10,11 +10,7 @@ app.configure(function() {
 });
 
 app.get('/', function(req, res) {
-	res.send('Hello there');
-});
-
-app.get('/admin', function(req, res) {
-	res.render('admin/index');
+	res.render('index');
 });
 
 app.listen(3000);
