@@ -7,10 +7,11 @@
 	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
 	<script type="text/javascript">
 		var socket = io.connect('http://localhost');
-		socket.on('news', function(data) {
-			console.log(data);
-			socket.emit('my other event', { my: 'data' });
-		});
+
+		document.body.onmousemove = function(e) {
+			socket.emit('tracking mouse', { pageX: e.pageX, pageY: e.pageY, clientX: e.clientX, clientY: e.clientY });
+		};
+
 	</script>
 </body>
 </html>
