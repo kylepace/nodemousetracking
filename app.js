@@ -3,7 +3,9 @@ var express = require('express')
 	, http = require('http')
 	, server = http.createServer(app)
 	, engine = require('ejs-locals')
-	, io = require('socket.io').listen(server);
+	, io = require('socket.io').listen(server)
+	, mongoose = require('mongoose')
+	, config = require('./config');
 
 app.configure(function() {
 	app.engine('ejs', engine);
@@ -21,5 +23,15 @@ io.sockets.on('connection', function(socket) {
 	});
 });
 
-server.listen(3000);
-console.log('Listening on port 3000.');
+mongoose.connect(config.mongo.connection);
+
+var db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'connection error:'));
+
+db.once('open', function () {
+
+	server.listen(3000);
+
+	console.log('Listening on port 3000.');
+});
