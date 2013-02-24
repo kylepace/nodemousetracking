@@ -5,7 +5,8 @@ var express = require('express')
 	, engine = require('ejs-locals')
 	, io = require('socket.io').listen(server)
 	, mongoose = require('mongoose')
-	, config = require('./config');
+	, config = require('./config')
+	, mousePosition = require('./lib/mousePosition');
 
 app.configure(function() {
 	app.engine('ejs', engine);
@@ -19,7 +20,7 @@ app.get('/', function(req, res) {
 
 io.sockets.on('connection', function(socket) {
 	socket.on('tracking mouse', function(data) {
-		console.log(data);
+		mousePosition.create(data.pageX, data.pageY, data.clientX, data.clientY, data.sessionId);
 	});
 });
 

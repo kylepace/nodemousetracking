@@ -6,10 +6,15 @@
 
 	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
 	<script type="text/javascript">
+		
+		var sessionId = function () {
+		  return '_' + Math.random().toString(36).substr(2, 9);
+		}();
+
 		var socket = io.connect('http://localhost');
 
 		document.body.onmousemove = function(e) {
-			socket.emit('tracking mouse', { pageX: e.pageX, pageY: e.pageY, clientX: e.clientX, clientY: e.clientY });
+			socket.emit('tracking mouse', { pageX: e.pageX, pageY: e.pageY, clientX: e.clientX, clientY: e.clientY, sessionId: sessionId });
 		};
 
 	</script>
