@@ -1,3 +1,5 @@
+'use strict';
+
 var express = require('express')
 	, app = express()
 	, http = require('http')
@@ -8,18 +10,22 @@ var express = require('express')
 	, config = require('./config')
 	, mousePosition = require('./lib/mousePosition');
 
-app.configure(function() {
+app.configure(function () {
 	app.engine('ejs', engine);
 	app.use('/public', express.static(__dirname + '/public'));
 	app.set('view engine', 'ejs');
 });
 
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
 	res.render('index');
 });
 
-io.sockets.on('connection', function(socket) {
-	socket.on('tracking mouse', function(data) {
+app.get('/admin', function (req, res) {
+	res.render('admin');
+});
+
+io.sockets.on('connection', function (socket) {
+	socket.on('tracking mouse', function (data) {
 		mousePosition.create(data.pageX, data.pageY, data.clientX, data.clientY, data.sessionId);
 	});
 });
